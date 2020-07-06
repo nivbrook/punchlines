@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+/Users/nivbrook/Documents/CodingDojo/java_stack/punchlines/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+2111500356.index
+485747002.index
+2623174632.index
+2871699173.index
+3677973001.index
+4286933393.index
