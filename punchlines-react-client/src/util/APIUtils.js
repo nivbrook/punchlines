@@ -67,6 +67,23 @@ export function getAllSetups(page, size) {
     });
 }
 
+export function getSetupById(setupId) {
+    return request({
+        url: API_BASE_URL+"/setups/"+setupId,
+        method: 'GET'
+    });
+}
+
+export function getPunchlinesBySetupId(page, size, setupId) {
+    page = page || 0;
+    size = size || POLL_LIST_SIZE;
+
+    return request({
+        url: API_BASE_URL + "/setups/"+setupId+"/punchlines?page=" + page + "&size=" + size,
+        method: 'GET'
+    });
+}
+
 export function castVote(voteData) {
     return request({
         url: API_BASE_URL + "/polls/" + voteData.pollId + "/votes",
