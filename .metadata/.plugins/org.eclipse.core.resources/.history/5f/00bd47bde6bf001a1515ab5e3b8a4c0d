@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import com.nivbrook.punchlines.model.Setup;
 import com.nivbrook.punchlines.payload.ApiResponse;
 import com.nivbrook.punchlines.payload.PagedResponse;
 import com.nivbrook.punchlines.payload.PunchlineRequest;
-import com.nivbrook.punchlines.payload.PunchlineResponse;
 import com.nivbrook.punchlines.payload.SetupRequest;
 import com.nivbrook.punchlines.payload.SetupResponse;
 import com.nivbrook.punchlines.security.CurrentUser;
@@ -68,20 +66,5 @@ public class SetupController {
 		
 		return ResponseEntity.created(location)
 				.body(new ApiResponse(true, "Punchline Created Successfully"));
-	}
-	
-	@GetMapping("/{setupId}")
-	@PreAuthorize("hasRole('USER')")
-	public SetupResponse getSetupById(@PathVariable("setupId") Long setupId) {
-		return setupService.getSetupById(setupId);
-	}
-	
-	@GetMapping("/{setupId}/punchlines")
-	@PreAuthorize("hasRole('USER')")
-	public PagedResponse<PunchlineResponse> getPunchlineBySetupId(@CurrentUser UserPrincipal currentUser,
-			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
-			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
-			@PathVariable("setupId") Long setupId){
-		return setupService.getPunchlinesBySetupId(currentUser, page, size, setupId);
 	}
 }

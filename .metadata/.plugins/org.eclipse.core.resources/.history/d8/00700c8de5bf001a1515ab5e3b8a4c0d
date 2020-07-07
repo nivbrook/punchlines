@@ -6,12 +6,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.nivbrook.punchlines.model.Poll;
-import com.nivbrook.punchlines.model.Punchline;
 import com.nivbrook.punchlines.model.Setup;
 import com.nivbrook.punchlines.model.User;
 import com.nivbrook.punchlines.payload.ChoiceResponse;
 import com.nivbrook.punchlines.payload.PollResponse;
-import com.nivbrook.punchlines.payload.PunchlineResponse;
 import com.nivbrook.punchlines.payload.SetupResponse;
 import com.nivbrook.punchlines.payload.UserSummary;
 
@@ -65,17 +63,5 @@ public class ModelMapper {
     	setupResponse.setCreatedBy(creatorSummary);
     	
     	return setupResponse;
-    }
-    
-    public static PunchlineResponse mapPunchlineToPunchlineResponse(Punchline punchline, User creator) {
-    	PunchlineResponse punchlineResponse = new PunchlineResponse();
-    	punchlineResponse.setId(punchline.getId());
-    	punchlineResponse.setText(punchline.getText());
-    	punchlineResponse.setCreationDateTime(punchline.getCreatedAt());
-    	
-    	UserSummary creatorSummary = new UserSummary(creator.getId(), creator.getUsername(), creator.getName());
-    	punchlineResponse.setCreatedBy(creatorSummary);
-    	
-    	return punchlineResponse;
     }
 }

@@ -1,0 +1,5 @@
+package com.nivbrook.punchlines.payload;
+
+public class SetupDetailedResponse {
+
+}

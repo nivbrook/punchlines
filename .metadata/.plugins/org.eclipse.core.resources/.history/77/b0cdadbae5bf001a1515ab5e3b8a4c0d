@@ -90,7 +90,7 @@ public class SetupService {
 		validatePageNumberAndSize(page, size);
 		
 		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-		Page<Punchline> punchlines = punchlineRepository.findBySetupId(setupId, pageable);
+		Page<Punchline> punchlines = punchlineRepository.findBySetupId(setupId);
 		
 		if(punchlines.getNumberOfElements()==0) {
 			return new PagedResponse<>(Collections.emptyList(), punchlines.getNumber(),
@@ -98,12 +98,6 @@ public class SetupService {
 		}
 		
 		Map<Long, User> creatorMap = getPunchlineCreatorMap(punchlines.getContent());
-		
-		List<PunchlineResponse> punchlineResponses = punchlines.map(punchline -> {
-			return ModelMapper.mapPunchlineToPunchlineResponse(punchline, creatorMap.get(punchline.getCreatedBy()));
-		}).getContent();
-		
-		return new PagedResponse<>(punchlineResponses, punchlines.getNumber(), punchlines.getSize(), punchlines.getTotalElements(), punchlines.getTotalPages(), punchlines.isLast());
 	}
 	
     private void validatePageNumberAndSize(int page, int size) {

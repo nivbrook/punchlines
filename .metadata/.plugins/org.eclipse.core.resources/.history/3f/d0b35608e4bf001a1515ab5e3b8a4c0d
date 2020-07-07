@@ -21,7 +21,6 @@ import com.nivbrook.punchlines.model.Setup;
 import com.nivbrook.punchlines.model.User;
 import com.nivbrook.punchlines.payload.PagedResponse;
 import com.nivbrook.punchlines.payload.PunchlineRequest;
-import com.nivbrook.punchlines.payload.PunchlineResponse;
 import com.nivbrook.punchlines.payload.SetupRequest;
 import com.nivbrook.punchlines.payload.SetupResponse;
 import com.nivbrook.punchlines.repository.PunchlineRepository;
@@ -71,6 +70,7 @@ public class SetupService {
 					setups.getSize(), setups.getTotalElements(), setups.getTotalPages(), setups.isLast());
 		}
 		
+		List<Long> setupIds = setups.map(Setup::getId).getContent();
 		Map<Long, User> creatorMap = getSetupCreatorMap(setups.getContent());
 		
 		List<SetupResponse> setupResponses = setups.map(setup -> {
@@ -78,32 +78,6 @@ public class SetupService {
 		}).getContent();
 		
 		return new PagedResponse<>(setupResponses, setups.getNumber(), setups.getSize(), setups.getTotalElements(), setups.getTotalPages(), setups.isLast());
-	}
-	
-	public SetupResponse getSetupById(Long id) {
-		Setup setup = setupRepository.findById(id).get();
-		User creator = userRepository.findById(setup.getCreatedBy()).get();
-		return ModelMapper.mapSetupToSetupResponse(setup, creator);
-	}
-	
-	public PagedResponse<PunchlineResponse> getPunchlinesBySetupId(UserPrincipal currentUser, int page, int size, Long setupId) {
-		validatePageNumberAndSize(page, size);
-		
-		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-		Page<Punchline> punchlines = punchlineRepository.findBySetupId(setupId, pageable);
-		
-		if(punchlines.getNumberOfElements()==0) {
-			return new PagedResponse<>(Collections.emptyList(), punchlines.getNumber(),
-					punchlines.getSize(), punchlines.getTotalElements(), punchlines.getTotalPages(), punchlines.isLast());
-		}
-		
-		Map<Long, User> creatorMap = getPunchlineCreatorMap(punchlines.getContent());
-		
-		List<PunchlineResponse> punchlineResponses = punchlines.map(punchline -> {
-			return ModelMapper.mapPunchlineToPunchlineResponse(punchline, creatorMap.get(punchline.getCreatedBy()));
-		}).getContent();
-		
-		return new PagedResponse<>(punchlineResponses, punchlines.getNumber(), punchlines.getSize(), punchlines.getTotalElements(), punchlines.getTotalPages(), punchlines.isLast());
 	}
 	
     private void validatePageNumberAndSize(int page, int size) {
@@ -119,19 +93,6 @@ public class SetupService {
     Map<Long, User> getSetupCreatorMap(List<Setup> setups){
     	List<Long> creatorIds = setups.stream()
     			.map(Setup::getCreatedBy)
-    			.distinct()
-    			.collect(Collectors.toList());
-    	
-    	List<User> creators = userRepository.findByIdIn(creatorIds);
-    	Map<Long, User> creatorMap = creators.stream()
-    			.collect(Collectors.toMap(User::getId, Function.identity()));
-    	
-    	return creatorMap;
-    }
-    
-    Map<Long, User> getPunchlineCreatorMap(List<Punchline> punchlines){
-    	List<Long> creatorIds = punchlines.stream()
-    			.map(Punchline::getCreatedBy)
     			.distinct()
     			.collect(Collectors.toList());
     	

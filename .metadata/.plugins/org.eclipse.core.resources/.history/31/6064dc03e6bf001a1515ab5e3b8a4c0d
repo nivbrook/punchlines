@@ -90,7 +90,7 @@ public class SetupService {
 		validatePageNumberAndSize(page, size);
 		
 		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-		Page<Punchline> punchlines = punchlineRepository.findBySetupId(setupId, pageable);
+		Page<Punchline> punchlines = punchlineRepository.findBySetupId(setupId);
 		
 		if(punchlines.getNumberOfElements()==0) {
 			return new PagedResponse<>(Collections.emptyList(), punchlines.getNumber(),
