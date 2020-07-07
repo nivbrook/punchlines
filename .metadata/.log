@@ -192,3 +192,15 @@ Binding(COMMAND+SHIFT+T,
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-07-06 14:56:44.517
 !MESSAGE executing callback sts4.classpath.qniOhfEm SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-07-07 16:04:38.340
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.qniOhfEm
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-07-07 16:04:38.349
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.qniOhfEm
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-07-07 16:04:38.349
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-07-07 16:04:38.349
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.qniOhfEm => OK

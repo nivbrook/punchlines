@@ -58,6 +58,7 @@ class SetupList extends Component {
     }
 
     componentDidMount() {
+        console.log("Mounted")
         this.loadSetupList();
     }
 
@@ -65,7 +66,7 @@ class SetupList extends Component {
         if(this.props.isAuthenticated !== nextProps.isAuthenticated) {
             // Reset State
             this.setState({
-                polls: [],
+                setups: [],
                 page: 0,
                 size: 10,
                 totalElements: 0,
@@ -85,6 +86,7 @@ class SetupList extends Component {
         const setupViews = [];
         this.state.setups.forEach((setup, setupIndex) => {
             setupViews.push(<Setup
+                currentUser={this.props.currentUser}
                 key={setup.id}
                 setup = {setup}/>)
         });

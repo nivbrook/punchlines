@@ -187,11 +187,5 @@
 }
 
 .punchline-count {
-    display: flex;
-    justify-content: space-between;
     font-size: 15px;
-}
-
-.delete-button {
-    color: red;
 }

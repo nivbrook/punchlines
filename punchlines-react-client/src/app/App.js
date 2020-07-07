@@ -22,6 +22,7 @@ import LoadingIndicator from '../common/LoadingIndicator';
 import PrivateRoute from '../common/PrivateRoute';
 
 import { Layout, notification } from 'antd';
+import SetupPage from '../setup/SetupPage';
 const { Content } = Layout;
 
 class App extends Component {
@@ -110,6 +111,11 @@ class App extends Component {
                   render={(props) => <SetupList isAuthenticated={this.state.isAuthenticated}
                   currentUser={this.state.currentUser} handleLogout={this.handleLogout} {...props} />}>
                 </Route>
+                <PrivateRoute authenticated={this.state.isAuthenticated} path="/setups/new" component={NewSetup} handleLogout={this.handleLogout}></PrivateRoute>
+                <Route exact path="/setups/:setupId"
+                  render={(props) => <SetupPage isAuthenticated={this.state.isAuthenticated}
+                  currentUser={this.state.currentUser} handleLogout={this.handleLogout} {...props} />}>
+                </Route>
                 <Route path="/login" 
                   render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>
                 <Route path="/signup" component={Signup}></Route>
@@ -117,7 +123,6 @@ class App extends Component {
                   render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props}  />}>
                 </Route>
                 <PrivateRoute authenticated={this.state.isAuthenticated} path="/poll/new" component={NewPoll} handleLogout={this.handleLogout}></PrivateRoute>
-                <PrivateRoute authenticated={this.state.isAuthenticated} path="/setups/new" component={NewSetup} handleLogout={this.handleLogout}></PrivateRoute>
                 <Route component={NotFound}></Route>
               </Switch>
             </div>

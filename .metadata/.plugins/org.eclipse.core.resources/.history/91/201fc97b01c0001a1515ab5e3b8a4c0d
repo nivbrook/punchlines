@@ -83,7 +83,6 @@ public class SetupService {
 	public SetupResponse getSetupById(Long id) {
 		Setup setup = setupRepository.findById(id).get();
 		User creator = userRepository.findById(setup.getCreatedBy()).get();
-		System.out.println(creator.toString());
 		return ModelMapper.mapSetupToSetupResponse(setup, creator);
 	}
 	

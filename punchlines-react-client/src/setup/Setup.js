@@ -41,7 +41,10 @@ class Setup extends Component {
                 }
             });
             this.props.setup.punchlineCount++;
-            this.props.history.push("/setups");
+            this.forceUpdate();
+            if (this.props.refreshPunchlineList){
+                this.props.refreshPunchlineList();
+            }
         }).catch(error => {
             if(error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create poll.');    
@@ -117,7 +120,8 @@ class Setup extends Component {
                         {this.props.setup.text}
                     </div>
                     <div className="punchline-count">
-                        <a href={"/setups/"+this.props.setup.id}>{this.props.setup.punchlineCount} {this.props.setup.punchlineCount == 1 ? "Punchline" : "Punchlines"}</a>
+                        <a href={"/setups/"+this.props.setup.id}>{this.props.setup.punchlineCount} {this.props.setup.punchlineCount === 1 ? "Punchline" : "Punchlines"}</a>
+                        {this.props.currentUser.id === this.props.setup.createdBy.id && <a className="delete-button" href="#">DELETE</a>}
                     </div>
                     <Form onSubmit={this.handleSubmit} className="create-punchline-form">
                         <FormItem validateStatus={this.state.punchline.validateStatus}

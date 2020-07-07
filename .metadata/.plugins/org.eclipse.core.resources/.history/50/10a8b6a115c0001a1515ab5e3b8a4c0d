@@ -73,9 +73,7 @@ public class SetupController {
 	@GetMapping("/{setupId}")
 	@PreAuthorize("hasRole('USER')")
 	public SetupResponse getSetupById(@PathVariable("setupId") Long setupId) {
-		SetupResponse setupResponse = setupService.getSetupById(setupId);
-		System.out.println(setupResponse.getCreatedBy().getUsername());
-		return setupResponse;
+		return setupService.getSetupById(setupId);
 	}
 	
 	@GetMapping("/{setupId}/punchlines")
