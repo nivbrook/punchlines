@@ -157,13 +157,6 @@ public class SetupService {
     	setup.getUserLikes().add(user);
     	setupRepository.save(setup);
     }
-    
-    public void unlikeSetup(Long userId, Long setupId) {
-    	Setup setup = setupRepository.findById(setupId).get();
-    	User user = userRepository.findById(userId).get();
-    	setup.getUserLikes().remove(user);
-    	setupRepository.save(setup);
-    }
 }
 
 

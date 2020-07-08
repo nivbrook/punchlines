@@ -91,6 +91,20 @@ export function deleteSetup(setupId) {
     })
 }
 
+export function likeSetup(setupId) {
+    return request({
+        url: API_BASE_URL + "/setups/" + setupId + "/like",
+        method: 'POST'
+    })
+}
+
+export function unlikeSetup(setupId) {
+    return request({
+        url: API_BASE_URL + "/setups/" + setupId + "/unlike",
+        method: 'POST'
+    })
+}
+
 export function castVote(voteData) {
     return request({
         url: API_BASE_URL + "/polls/" + voteData.pollId + "/votes",

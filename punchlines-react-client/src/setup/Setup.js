@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Setup.css';
-import { createPunchline, deleteSetup } from '../util/APIUtils';
+import { createPunchline, deleteSetup, likeSetup, unlikeSetup } from '../util/APIUtils';
 import { withRouter} from 'react-router-dom';
 import { Avatar, Icon, Button, Form, Input, notification } from 'antd';
 import { PUNCHLINE_TEXT_MAX_LENGTH } from '../constants';
@@ -18,13 +18,28 @@ class Setup extends Component {
         this.state = {
             punchline: {
                 text: ''
-            }
+            },
+            likeCount: "error",
+            isLiked: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validatePunchline = this.validatePunchline.bind(this);
         this.handlePunchlineChange = this.handlePunchlineChange.bind(this);
         this.isFormInvalid = this.isFormInvalid.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleLike = this.handleLike.bind(this);
+    }
+
+    componentDidMount() {
+        const likeIds = this.props.setup.likeIds;
+        if(likeIds.includes(this.props.currentUser.id)){
+            this.setState({
+                isLiked: true
+            })
+        }
+        this.setState({
+            likeCount: this.props.setup.likeIds.length
+        })
     }
 
     handleSubmit(event) {
@@ -56,6 +71,26 @@ class Setup extends Component {
                 });              
             }
         });
+    }
+
+    handleLike() {
+        likeSetup(this.props.setup.id);
+        this.setState(prevState => {
+            return {
+                likeCount: prevState.likeCount + 1,
+                isLiked: true
+            }
+         })
+    }
+
+    handleUnlike() {
+        unlikeSetup(this.props.setup.id);
+        this.setState(prevState => {
+            return {
+                likeCount: prevState.likeCount - 1,
+                isLiked: false
+            }
+         })
     }
 
     validatePunchline(punchlineText) {
@@ -103,22 +138,43 @@ class Setup extends Component {
         return (
             <div className="poll-content">
                 <div className="poll-header">
-                    <div className="poll-creator-info">
-                        <Link className="creator-link" to={`/users/${this.props.setup.createdBy.username}`}>
-                            <Avatar className="poll-creator-avatar"
-                                style={{ backgroundColor: getAvatarColor(this.props.setup.createdBy.name)}}>
-                                    {this.props.setup.createdBy.name[0].toUpperCase()}
-                            </Avatar>
-                            <span className="poll-creator-name">
-                                {this.props.setup.createdBy.name}
-                            </span>
-                            <span className="poll-creator-username">
-                                @{this.props.setup.createdBy.username}
-                            </span>
-                            <span className="poll-creation-date">
-                                {formatDateTime(this.props.setup.creationDateTime)}
-                            </span>
-                        </Link>
+                    <div className="top-bar">
+                        <div className="like-button">
+                            {!this.state.isLiked ? 
+                                <img 
+                                    onClick={()=>this.handleLike()}
+                                    style={{cursor:'pointer'}}
+                                    onMouseOver={e => (e.currentTarget.src = "/laughicon.svg")}
+                                    onMouseOut={e => (e.currentTarget.src = "/laughbw.svg")}
+                                    height="30" src="/laughbw.svg"/> :
+                                <img 
+                                    onClick={()=>this.handleUnlike()}
+                                    style={{cursor:'pointer'}}
+                                    onMouseOver={e => (e.currentTarget.src = "/laughbw.svg")}
+                                    onMouseOut={e => (e.currentTarget.src = "/laughicon.svg")}
+                                    height="30" src="/laughicon.svg"/>}
+                        </div>
+                        <div className="like-count">
+                            <span style={{fontSize: "20px", fontWeight: "700"}}>{this.state.likeCount}</span>
+                            laughs
+                        </div>
+                        <div className="poll-creator-info">
+                            <Link className="creator-link" to={`/users/${this.props.setup.createdBy.username}`}>
+                                {/* <Avatar className="poll-creator-avatar"
+                                    style={{ backgroundColor: getAvatarColor(this.props.setup.createdBy.name)}}>
+                                        {this.props.setup.createdBy.name[0].toUpperCase()}
+                                </Avatar> */}
+                                <span className="poll-creator-name">
+                                    {this.props.setup.createdBy.name}
+                                </span>
+                                <span className="poll-creator-username">
+                                    @{this.props.setup.createdBy.username}
+                                </span>
+                                <span className="poll-creation-date">
+                                    {formatDateTime(this.props.setup.creationDateTime)}
+                                </span>
+                            </Link>
+                        </div>
                     </div>
                     <div className="category">
                         Category: {this.props.setup.category}
@@ -154,3 +210,5 @@ class Setup extends Component {
 }
 
 export default withRouter(Setup);
+
+{/* <img height="40" className="like-button" src="/laughicon.png"/> */}

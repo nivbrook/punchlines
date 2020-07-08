@@ -11,7 +11,7 @@ public class SetupResponse {
 	private UserSummary createdBy;
 	private Instant creationDateTime;
 	private int punchlineCount;
-	private List<Long> likeIds = new ArrayList<>();
+	private List<Long> likeIds = new ArrayList<>();;
 	
 	public Long getId() {
 		return id;

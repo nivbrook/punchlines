@@ -64,10 +64,6 @@ public class ModelMapper {
     	UserSummary creatorSummary = new UserSummary(creator.getId(), creator.getUsername(), creator.getName());
     	setupResponse.setCreatedBy(creatorSummary);
     	
-    	for(User user:setup.getUserLikes()) {
-    		setupResponse.getLikeIds().add(user.getId());
-    	}
-    	
     	return setupResponse;
     }
     

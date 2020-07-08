@@ -1,7 +1,6 @@
 package com.nivbrook.punchlines.payload;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SetupResponse {
@@ -11,7 +10,7 @@ public class SetupResponse {
 	private UserSummary createdBy;
 	private Instant creationDateTime;
 	private int punchlineCount;
-	private List<Long> likeIds = new ArrayList<>();
+	private List<Long> likeIds;
 	
 	public Long getId() {
 		return id;

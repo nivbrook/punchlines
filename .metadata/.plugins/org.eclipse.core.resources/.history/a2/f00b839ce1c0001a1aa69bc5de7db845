@@ -105,11 +105,11 @@ public class SetupController {
 	
 	@PostMapping("/{setupId}/like")
 	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> likeSetup(@CurrentUser UserPrincipal currentUser,
+	public ResponseEntity<String> likeSetup(@CurrentUser UserPrincipal currentUser,
 			@PathVariable("setupId") Long setupId) {
 		setupService.likeSetup(currentUser.getId(), setupId);
 		
-		return ResponseEntity.ok().header("Like Attempt", "Success").body(new ApiResponse(true, "Like Successful"));
+		return ResponseEntity.ok().header("Like Attempt", "Success").body("LIKE SUCCESS");
 	}
 	
 	@PostMapping("/{setupId}/unlike")
