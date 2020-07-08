@@ -94,12 +94,12 @@ public class SetupController {
 	
 	@DeleteMapping("/{setupId}")
 	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<String> deleteSetup(@CurrentUser UserPrincipal currentUser,
+	public void deleteSetup(@CurrentUser UserPrincipal currentUser,
 			@PathVariable("setupId") Long setupId) {
 		Setup setup = setupRepository.findById(setupId).get();
 		if (setup.getCreatedBy() == currentUser.getId()) {
 			setupService.deleteSetup(setupId);
 		}
-		return ResponseEntity.ok().header("Delete Attempt", "Success").body("DELETE SUCCESS");
 	}
+	
 }

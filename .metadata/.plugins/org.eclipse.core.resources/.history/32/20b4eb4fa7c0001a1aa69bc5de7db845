@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +24,6 @@ import com.nivbrook.punchlines.payload.PunchlineRequest;
 import com.nivbrook.punchlines.payload.PunchlineResponse;
 import com.nivbrook.punchlines.payload.SetupRequest;
 import com.nivbrook.punchlines.payload.SetupResponse;
-import com.nivbrook.punchlines.repository.SetupRepository;
 import com.nivbrook.punchlines.security.CurrentUser;
 import com.nivbrook.punchlines.security.UserPrincipal;
 import com.nivbrook.punchlines.service.SetupService;
@@ -37,9 +35,6 @@ public class SetupController {
 	
 	@Autowired
 	private SetupService setupService;
-	
-	@Autowired
-	private SetupRepository setupRepository; 
 	
 	@PostMapping
 	@PreAuthorize("hasRole('USER')")
@@ -90,16 +85,5 @@ public class SetupController {
 			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
 			@PathVariable("setupId") Long setupId){
 		return setupService.getPunchlinesBySetupId(currentUser, page, size, setupId);
-	}
-	
-	@DeleteMapping("/{setupId}")
-	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<String> deleteSetup(@CurrentUser UserPrincipal currentUser,
-			@PathVariable("setupId") Long setupId) {
-		Setup setup = setupRepository.findById(setupId).get();
-		if (setup.getCreatedBy() == currentUser.getId()) {
-			setupService.deleteSetup(setupId);
-		}
-		return ResponseEntity.ok().header("Delete Attempt", "Success").body("DELETE SUCCESS");
 	}
 }

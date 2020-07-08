@@ -94,7 +94,7 @@ class SetupPage extends Component {
     render() {
         const punchlineViews = [];
         this.state.punchlines.forEach((punchline, punchlineIndex) => {
-            punchlineViews.push(<Punchline key={punchline.id} punchline = {punchline}/>)
+            punchlineViews.push(<Punchline currentUser= {this.props.currentUser} key={punchline.id} punchline = {punchline}/>)
         })
         console.log(this.state.setup)
         if(this.state.isLoading) {
@@ -102,7 +102,7 @@ class SetupPage extends Component {
         }
         return (
             <div className="polls-container">
-                <Setup setup= {this.state.setup} refreshPunchlineList={this.refreshPunchlineList}/>
+                <Setup currentUser= {this.props.currentUser} setup= {this.state.setup} refreshPunchlineList={this.refreshPunchlineList}/>
                 {punchlineViews}
                 {
                     !this.state.isLoading && this.state.punchlines.length === 0 ? (

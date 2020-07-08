@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Setup.css';
-import { createPunchline } from '../util/APIUtils';
+import { createPunchline, deleteSetup } from '../util/APIUtils';
 import { withRouter} from 'react-router-dom';
 import { Avatar, Icon, Button, Form, Input, notification } from 'antd';
 import { PUNCHLINE_TEXT_MAX_LENGTH } from '../constants';
@@ -24,6 +24,7 @@ class Setup extends Component {
         this.validatePunchline = this.validatePunchline.bind(this);
         this.handlePunchlineChange = this.handlePunchlineChange.bind(this);
         this.isFormInvalid = this.isFormInvalid.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     handleSubmit(event) {
@@ -92,6 +93,12 @@ class Setup extends Component {
         }
     }
 
+    handleDelete(setupId) {
+        deleteSetup(setupId);
+        this.props.history.push("/setups");
+        window.location.reload();
+    }
+
     render() {
         return (
             <div className="poll-content">
@@ -121,7 +128,7 @@ class Setup extends Component {
                     </div>
                     <div className="punchline-count">
                         <a href={"/setups/"+this.props.setup.id}>{this.props.setup.punchlineCount} {this.props.setup.punchlineCount === 1 ? "Punchline" : "Punchlines"}</a>
-                        {this.props.currentUser.id === this.props.setup.createdBy.id && <a className="delete-button" href="#">DELETE</a>}
+                        {this.props.currentUser.id === this.props.setup.createdBy.id && <a className="delete-button" onClick={()=>this.handleDelete(this.props.setup.id)}>Delete</a>}
                     </div>
                     <Form onSubmit={this.handleSubmit} className="create-punchline-form">
                         <FormItem validateStatus={this.state.punchline.validateStatus}

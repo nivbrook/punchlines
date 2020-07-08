@@ -84,6 +84,13 @@ export function getPunchlinesBySetupId(page, size, setupId) {
     });
 }
 
+export function deleteSetup(setupId) {
+    return request({
+        url: API_BASE_URL + "/setups/"+setupId,
+        method: 'DELETE'
+    })
+}
+
 export function castVote(voteData) {
     return request({
         url: API_BASE_URL + "/polls/" + voteData.pollId + "/votes",

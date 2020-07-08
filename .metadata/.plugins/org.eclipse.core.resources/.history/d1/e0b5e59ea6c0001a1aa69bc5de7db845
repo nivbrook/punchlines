@@ -142,12 +142,4 @@ public class SetupService {
     	
     	return creatorMap;
     }
-    
-    public void deleteSetup(Long id) {
-    	setupRepository.deleteById(id);
-    }
-    
-    public void deletePunchline(Long id) {
-    	punchlineRepository.deleteById(id);
-    }
 }
