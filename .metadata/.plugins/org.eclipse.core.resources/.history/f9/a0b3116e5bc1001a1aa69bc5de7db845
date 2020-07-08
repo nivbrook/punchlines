@@ -131,7 +131,7 @@ public class SetupController {
 			@PathVariable("punchlineId") Long punchlineId) {
 		Punchline punchline = punchlineRepository.findById(punchlineId).get();
 		if (punchline.getCreatedBy() == currentUser.getId()) {
-			setupService.deletePunchline(punchlineId);
+			setupService.deleteSetup(punchlineId);
 		}
 		return ResponseEntity.ok().header("Delete Attempt", "Success").body("DELETE SUCCESS");
 	}

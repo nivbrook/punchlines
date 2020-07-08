@@ -113,11 +113,6 @@ function SetupsDropdownMenu(props) {
         <Link to="/premises">Premises</Link>
       </Menu.Item>
       <Menu.Divider />
-      <Menu.Item key="/poll/new">
-        <Link to="/poll/new">
-          Create Poll
-        </Link>
-      </Menu.Item>
       <Menu.Item key="/setups/new">
         <Link to="/setups/new">
           Create Setup

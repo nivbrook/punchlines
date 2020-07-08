@@ -31,7 +31,7 @@ class newSetup extends Component {
         }
         createSetup(setupData)
         .then(response => {
-            this.props.history.push("/setups");
+            this.props.history.push("/");
         }).catch(error => {
             if(error.status === 401) {
                 this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create poll.');    

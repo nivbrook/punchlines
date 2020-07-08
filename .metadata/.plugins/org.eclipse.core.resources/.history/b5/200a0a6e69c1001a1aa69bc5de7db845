@@ -52,7 +52,7 @@ public class Setup extends UserDateAudit{
 				inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> userLikes = new HashSet<>();
 	
-	private int likeCount = 0;
+	private int likeCount;
 		
 	public Setup() {
 		super();

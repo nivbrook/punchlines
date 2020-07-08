@@ -52,8 +52,8 @@ public class Setup extends UserDateAudit{
 				inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> userLikes = new HashSet<>();
 	
-	private int likeCount = 0;
-		
+	private int likeCount = userLikes.size();
+	
 	public Setup() {
 		super();
 	}
@@ -105,10 +105,6 @@ public class Setup extends UserDateAudit{
 
 	public int getLikeCount() {
 		return likeCount;
-	}
-
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
 	}
 	
 }

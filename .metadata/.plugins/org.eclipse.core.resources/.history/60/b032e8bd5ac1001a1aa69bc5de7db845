@@ -25,7 +25,6 @@ import com.nivbrook.punchlines.payload.PunchlineRequest;
 import com.nivbrook.punchlines.payload.PunchlineResponse;
 import com.nivbrook.punchlines.payload.SetupRequest;
 import com.nivbrook.punchlines.payload.SetupResponse;
-import com.nivbrook.punchlines.repository.PunchlineRepository;
 import com.nivbrook.punchlines.repository.SetupRepository;
 import com.nivbrook.punchlines.security.CurrentUser;
 import com.nivbrook.punchlines.security.UserPrincipal;
@@ -40,10 +39,7 @@ public class SetupController {
 	private SetupService setupService;
 	
 	@Autowired
-	private SetupRepository setupRepository;
-	
-	@Autowired
-	private PunchlineRepository punchlineRepository;
+	private SetupRepository setupRepository; 
 	
 	@PostMapping
 	@PreAuthorize("hasRole('USER')")
@@ -123,17 +119,6 @@ public class SetupController {
 		setupService.unlikeSetup(currentUser.getId(), setupId);
 		
 		return ResponseEntity.ok().header("UnLike Attempt", "Success").body(new ApiResponse(true, "Unlike Successful"));
-	}
-	
-	@DeleteMapping("/punchlines/{punchlineId}")
-	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<String> deletePunchline(@CurrentUser UserPrincipal currentUser,
-			@PathVariable("punchlineId") Long punchlineId) {
-		Punchline punchline = punchlineRepository.findById(punchlineId).get();
-		if (punchline.getCreatedBy() == currentUser.getId()) {
-			setupService.deletePunchline(punchlineId);
-		}
-		return ResponseEntity.ok().header("Delete Attempt", "Success").body("DELETE SUCCESS");
 	}
 }
 

@@ -189,3 +189,7 @@
 .punchline-count {
     font-size: 15px;
 }
+
+.delete-button {
+    color: red;
+}

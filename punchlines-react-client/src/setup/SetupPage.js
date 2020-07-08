@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './SetupPage.css';
 import { SETUP_LIST_SIZE } from '../constants';
-import { getSetupById, getPunchlinesBySetupId } from '../util/APIUtils';
+import { getSetupById, getPunchlinesBySetupId, deletePunchline } from '../util/APIUtils';
 import { Button, Icon, notification } from 'antd';
 import Setup from './Setup';
 import Punchline from './Punchline'
@@ -24,6 +24,7 @@ class SetupPage extends Component {
         this.loadSetupAndPunchlineList = this.loadSetupAndPunchlineList.bind(this);
         this.handleLoadMore = this.handleLoadMore.bind(this);
         this.refreshPunchlineList = this.refreshPunchlineList.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     loadSetupAndPunchlineList(setupId, page = 0, size = SETUP_LIST_SIZE) {
@@ -91,10 +92,15 @@ class SetupPage extends Component {
         });
         this.loadSetupAndPunchlineList(this.state.setup.id);
     }
+
+    handleDelete(punchlineId) {
+        deletePunchline(punchlineId);
+        this.refreshPunchlineList();
+    }
     render() {
         const punchlineViews = [];
         this.state.punchlines.forEach((punchline, punchlineIndex) => {
-            punchlineViews.push(<Punchline currentUser= {this.props.currentUser} key={punchline.id} punchline = {punchline}/>)
+            punchlineViews.push(<Punchline handleDelete={this.handleDelete} currentUser= {this.props.currentUser} key={punchline.id} punchline = {punchline}/>)
         })
         console.log(this.state.setup)
         if(this.state.isLoading) {

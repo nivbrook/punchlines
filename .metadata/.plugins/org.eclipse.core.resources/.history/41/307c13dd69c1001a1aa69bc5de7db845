@@ -155,7 +155,6 @@ public class SetupService {
     	Setup setup = setupRepository.findById(setupId).get();
     	User user = userRepository.findById(userId).get();
     	setup.getUserLikes().add(user);
-    	setup.setLikeCount(setup.getLikeCount()+1);
     	setupRepository.save(setup);
     }
     
@@ -163,7 +162,6 @@ public class SetupService {
     	Setup setup = setupRepository.findById(setupId).get();
     	User user = userRepository.findById(userId).get();
     	setup.getUserLikes().remove(user);
-    	setup.setLikeCount(setup.getLikeCount()-1);
     	setupRepository.save(setup);
     }
 }

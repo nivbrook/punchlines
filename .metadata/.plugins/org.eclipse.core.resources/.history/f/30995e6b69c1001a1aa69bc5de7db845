@@ -38,8 +38,6 @@ public class Punchline extends UserDateAudit{
 				joinColumns = @JoinColumn(name = "punchline_id"),
 				inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> userLikes = new HashSet<>();
-	
-	private int likeCount = 0;
     
     public Punchline() {
     	super();
@@ -81,13 +79,5 @@ public class Punchline extends UserDateAudit{
 	public void setUserLikes(Set<User> userLikes) {
 		this.userLikes = userLikes;
 	}
-
-	public int getLikeCount() {
-		return likeCount;
-	}
-
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
-	
+    
 }

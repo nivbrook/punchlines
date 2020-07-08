@@ -91,6 +91,13 @@ export function deleteSetup(setupId) {
     })
 }
 
+export function deletePunchline(punchlineId) {
+    return request({
+        url: API_BASE_URL + "/setups/punchlines/"+punchlineId,
+        method: 'DELETE'
+    })
+}
+
 export function likeSetup(setupId) {
     return request({
         url: API_BASE_URL + "/setups/" + setupId + "/like",

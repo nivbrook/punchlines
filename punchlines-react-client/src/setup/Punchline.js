@@ -36,6 +36,7 @@ class Punchline extends Component {
                     <div className="poll-question">
                         {this.props.punchline.text}
                     </div>
+                    {this.props.currentUser.id === this.props.punchline.createdBy.id && <a className="delete-button" onClick={()=>this.props.handleDelete(this.props.punchline.id)}>Delete</a>}
                 </div>
             </div>
         )
