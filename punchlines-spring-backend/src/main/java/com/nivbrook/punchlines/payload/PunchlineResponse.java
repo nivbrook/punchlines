@@ -10,6 +10,7 @@ public class PunchlineResponse {
 	private UserSummary createdBy;
 	private Instant creationDateTime;
 	private List<Long> likeIds = new ArrayList<>();
+	private SetupResponse setup;
 	
 	public Long getId() {
 		return id;
@@ -40,5 +41,11 @@ public class PunchlineResponse {
 	}
 	public void setLikeIds(List<Long> likeIds) {
 		this.likeIds = likeIds;
+	}
+	public SetupResponse getSetup() {
+		return setup;
+	}
+	public void setSetup(SetupResponse setup) {
+		this.setup = setup;
 	}
 }

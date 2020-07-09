@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PollList from '../../poll/PollList';
+import PunchlineList from '../../setup/PunchlineList';
 import { getUserProfile } from '../../util/APIUtils';
 import { Avatar, Tabs } from 'antd';
 import { getAvatarColor } from '../../util/Colors';
@@ -8,6 +8,7 @@ import LoadingIndicator  from '../../common/LoadingIndicator';
 import './Profile.css';
 import NotFound from '../../common/NotFound';
 import ServerError from '../../common/ServerError';
+import SetupList from '../../setup/SetupList';
 
 const TabPane = Tabs.TabPane;
 
@@ -100,11 +101,11 @@ class Profile extends Component {
                                     tabBarStyle={tabBarStyle}
                                     size="large"
                                     className="profile-tabs">
-                                    <TabPane tab={`${this.state.user.pollCount} Polls`} key="1">
-                                        <PollList username={this.props.match.params.username} type="USER_CREATED_POLLS" />
+                                    <TabPane tab={`${this.state.user.setupCount} Setups`} key="1">
+                                        <SetupList username={this.props.match.params.username} currentUser={this.props.currentUser} isAuthenticated={this.props.isAuthenticated}/>
                                     </TabPane>
-                                    <TabPane tab={`${this.state.user.voteCount} Votes`}  key="2">
-                                        <PollList username={this.props.match.params.username} type="USER_VOTED_POLLS" />
+                                    <TabPane tab={`${this.state.user.punchlineCount} Punchlines`}  key="2">
+                                        <PunchlineList username={this.props.match.params.username} currentUser={this.props.currentUser} isAuthenticated={this.props.isAuthenticated} />
                                     </TabPane>
                                 </Tabs>
                             </div>  

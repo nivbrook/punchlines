@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllSetups } from '../util/APIUtils';
+import { getAllSetups, getUserCreatedSetups } from '../util/APIUtils';
 import Setup from './Setup';
 import LoadingIndicator  from '../common/LoadingIndicator';
 import { Select, Button, Icon, notification } from 'antd';
@@ -29,11 +29,14 @@ class SetupList extends Component {
         this.handleSort = this.handleSort.bind(this);
     }
 
-    loadSetupList(page = 0, size = SETUP_LIST_SIZE, category = "all", sort = "newest") {
+    loadSetupList(page = 0, size = SETUP_LIST_SIZE) {
         let promise;
-
-        promise = getAllSetups(page, size, this.state.category, this.state.sort);
-
+        if(this.props.username) {
+            promise = getUserCreatedSetups(this.props.username, page, size, this.state.category, this.state.sort)
+        } else {
+            promise = getAllSetups(page, size, this.state.category, this.state.sort);
+        }
+        
         if(!promise) {
             return;
         }

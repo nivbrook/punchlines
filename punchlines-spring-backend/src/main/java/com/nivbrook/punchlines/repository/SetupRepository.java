@@ -19,5 +19,7 @@ public interface SetupRepository extends JpaRepository<Setup, Long>{
     Page<Setup> findByCreatedBy(Long userId, Pageable pageable);
     
     Page<Setup> findByCategory(String category, Pageable pageable);
-
+    
+    Page<Setup> findByCreatedByAndCategory(Long userId, String category, Pageable pageable);
+    
 }

@@ -47,8 +47,8 @@ public class SetupController {
 	
 	@PostMapping
 	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> createSetup(@Valid @RequestBody SetupRequest setupRequest){
-		Setup setup = setupService.createSetup(setupRequest);
+	public ResponseEntity<?> createSetup(@Valid @RequestBody SetupRequest setupRequest, @CurrentUser UserPrincipal currentUser){
+		Setup setup = setupService.createSetup(setupRequest, currentUser);
 		
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{setupId}")
@@ -69,10 +69,9 @@ public class SetupController {
 	
 	@PostMapping("/punchlines")
 	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> createPunchline(@Valid @RequestBody PunchlineRequest punchlineRequest) {
-		System.out.println("Recieved punchline: "+punchlineRequest.getText());
-		Punchline punchline = setupService.createPunchline(punchlineRequest);
-		System.out.println("Processed .createPunchline");
+	public ResponseEntity<?> createPunchline(@Valid @RequestBody PunchlineRequest punchlineRequest, @CurrentUser UserPrincipal currentUser) {
+		Punchline punchline = setupService.createPunchline(punchlineRequest, currentUser);
+		
 		URI location = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/punchlines/{punchlineId}")
 				.buildAndExpand(punchline.getId()).toUri();
@@ -157,6 +156,26 @@ public class SetupController {
 		return ResponseEntity.ok().header("Unlike Attempt", "Success").body(new ApiResponse(true, "Unlike Successful"));
 	}
 	
+	@GetMapping("/user/{username}/setups")
+	@PreAuthorize("hasRole('USER')")
+	public PagedResponse<SetupResponse> getSetupsCreatedBy(@CurrentUser UserPrincipal currentUser,
+			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
+			@RequestParam(value = "category") String category,
+			@RequestParam(value = "sort") String sort,
+			@PathVariable("username") String username) {
+		return setupService.getSetupsCreatedBy(username, currentUser, page, size, category, sort);
+	}
+	
+	@GetMapping("/user/{username}/punchlines")
+	@PreAuthorize("hasRole('USER')")
+	public PagedResponse<PunchlineResponse> getPunchlinesCreatedBy(@CurrentUser UserPrincipal currentUser,
+			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
+			@RequestParam(value = "sort") String sort,
+			@PathVariable("username") String username) {
+		return setupService.getPunchlinesCreatedBy(username, currentUser, page, size, sort);
+	}
 }
 
 

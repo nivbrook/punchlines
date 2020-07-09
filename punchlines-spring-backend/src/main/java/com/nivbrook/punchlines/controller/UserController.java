@@ -18,6 +18,8 @@ import com.nivbrook.punchlines.payload.UserIdentityAvailability;
 import com.nivbrook.punchlines.payload.UserProfile;
 import com.nivbrook.punchlines.payload.UserSummary;
 import com.nivbrook.punchlines.repository.PollRepository;
+import com.nivbrook.punchlines.repository.PunchlineRepository;
+import com.nivbrook.punchlines.repository.SetupRepository;
 import com.nivbrook.punchlines.repository.UserRepository;
 import com.nivbrook.punchlines.repository.VoteRepository;
 import com.nivbrook.punchlines.security.CurrentUser;
@@ -37,7 +39,13 @@ public class UserController {
 
     @Autowired
     private VoteRepository voteRepository;
-
+    
+    @Autowired
+    private SetupRepository setupRepository;
+    
+    @Autowired
+    private PunchlineRepository punchlineRepository;
+    
     @Autowired
     private PollService pollService;
 
@@ -67,10 +75,10 @@ public class UserController {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "username", username));
 
-        long pollCount = pollRepository.countByCreatedBy(user.getId());
-        long voteCount = voteRepository.countByUserId(user.getId());
+        long setupCount = setupRepository.countByCreatedBy(user.getId());
+        long punchlineCount = punchlineRepository.countByCreatedBy(user.getId());
 
-        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getCreatedAt(), pollCount, voteCount);
+        UserProfile userProfile = new UserProfile(user.getId(), user.getUsername(), user.getName(), user.getCreatedAt(), setupCount, punchlineCount);
 
         return userProfile;
     }

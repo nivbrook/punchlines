@@ -77,6 +77,9 @@ public class ModelMapper {
     	punchlineResponse.setText(punchline.getText());
     	punchlineResponse.setCreationDateTime(punchline.getCreatedAt());
     	
+    	SetupResponse setupResponse = mapSetupToSetupResponse(punchline.getSetup(), creator);
+    	punchlineResponse.setSetup(setupResponse);
+    	
     	UserSummary creatorSummary = new UserSummary(creator.getId(), creator.getUsername(), creator.getName());
     	punchlineResponse.setCreatedBy(creatorSummary);
     	

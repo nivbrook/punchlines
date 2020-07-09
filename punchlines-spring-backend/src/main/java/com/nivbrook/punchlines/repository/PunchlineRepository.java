@@ -10,4 +10,8 @@ import com.nivbrook.punchlines.model.Punchline;
 @Repository
 public interface PunchlineRepository extends JpaRepository<Punchline, Long>{
 	public Page<Punchline> findBySetupId(Long id, Pageable pageable);
+	
+	long countByCreatedBy(Long userId);
+	
+    Page<Punchline> findByCreatedBy(Long userId, Pageable pageable);
 }

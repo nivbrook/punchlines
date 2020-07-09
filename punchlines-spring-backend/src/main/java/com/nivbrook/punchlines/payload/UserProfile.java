@@ -7,16 +7,16 @@ public class UserProfile {
     private String username;
     private String name;
     private Instant joinedAt;
-    private Long pollCount;
-    private Long voteCount;
+    private Long setupCount;
+    private Long punchlineCount;
 
-    public UserProfile(Long id, String username, String name, Instant joinedAt, Long pollCount, Long voteCount) {
+    public UserProfile(Long id, String username, String name, Instant joinedAt, Long setupCount, Long punchlineCount) {
         this.id = id;
         this.username = username;
         this.name = name;
         this.joinedAt = joinedAt;
-        this.pollCount = pollCount;
-        this.voteCount = voteCount;
+        this.setupCount = setupCount;
+        this.punchlineCount = punchlineCount;
     }
 
     public Long getId() {
@@ -51,19 +51,19 @@ public class UserProfile {
         this.joinedAt = joinedAt;
     }
 
-    public Long getPollCount() {
-        return pollCount;
+    public Long getSetupCount() {
+        return setupCount;
     }
 
-    public void setPollCount(Long pollCount) {
-        this.pollCount = pollCount;
+    public void setSetupCount(Long setupCount) {
+        this.setupCount = setupCount;
     }
 
-    public Long getVoteCount() {
-        return voteCount;
+    public Long getPunchlineCount() {
+        return punchlineCount;
     }
 
-    public void setVoteCount(Long voteCount) {
-        this.voteCount = voteCount;
+    public void setPunchlineCount(Long punchlineCount) {
+        this.punchlineCount = punchlineCount;
     }
 }

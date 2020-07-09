@@ -46,19 +46,22 @@ public class SetupService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(SetupService.class);
 	
-	public Setup createSetup(SetupRequest setupRequest) {
+	public Setup createSetup(SetupRequest setupRequest, UserPrincipal currentUser) {
 		Setup setup = new Setup();
 		setup.setText(setupRequest.getText());
 		setup.setCategory(setupRequest.getCategory());
-		return setupRepository.save(setup);
+		Setup savedSetup = setupRepository.save(setup);
+		likeSetup(currentUser.getId(), savedSetup.getId());
+		return savedSetup;
 	}
 	
-	public Punchline createPunchline(PunchlineRequest punchlineRequest) {
-		System.out.println("Got to createPunchline");
+	public Punchline createPunchline(PunchlineRequest punchlineRequest, UserPrincipal currentUser) {
 		Punchline punchline = new Punchline();
 		punchline.setText(punchlineRequest.getText());
 		punchline.setSetup(setupRepository.findById(punchlineRequest.getSetupId()).get());
-		return punchlineRepository.save(punchline);
+		Punchline savedPunchline = punchlineRepository.save(punchline);
+		likePunchline(currentUser.getId(), savedPunchline.getId());
+		return savedPunchline;
 	}
 	
 	public PagedResponse<SetupResponse> getAllSetups(UserPrincipal currentUser, int page, int size, String category, String sort) {
@@ -201,14 +204,25 @@ public class SetupService {
     	punchlineRepository.save(punchline);
     }
     
-    public PagedResponse<SetupResponse> getSetupsCreatedBy(String username, UserPrincipal currentUser, int page, int size) {
+    public PagedResponse<SetupResponse> getSetupsCreatedBy(String username, UserPrincipal currentUser, int page, int size, String category, String sort) {
     	validatePageNumberAndSize(page, size);
     	
     	User user = userRepository.findByUsername(username)
     			.orElseThrow(()-> new ResourceNotFoundException("User", "username", username));
     	
-    	Pageable pageable = PageRequest.of(page,  size, Sort.Direction.DESC, "createdAt");
-    	Page<Setup> setups = setupRepository.findByCreatedBy(user.getId(), pageable);
+    	Pageable pageable;
+    	if (sort.equals("newest")) {
+    		pageable = PageRequest.of(page,  size, Sort.Direction.DESC, "createdAt");
+    	} else {
+    		pageable = PageRequest.of(page,  size, Sort.Direction.DESC, "likeCount");
+    	}
+    	
+    	Page<Setup> setups;
+    	if(category.equals("all")) {
+    		setups = setupRepository.findByCreatedBy(user.getId(), pageable);
+    	} else {
+    		setups = setupRepository.findByCreatedByAndCategory(user.getId(), category, pageable);
+    	}
     	
     	if(setups.getNumberOfElements()==0) {
 			return new PagedResponse<>(Collections.emptyList(), setups.getNumber(),
@@ -222,6 +236,35 @@ public class SetupService {
 		}).getContent();
 		
 		return new PagedResponse<>(setupResponses, setups.getNumber(), setups.getSize(), setups.getTotalElements(), setups.getTotalPages(), setups.isLast());
+    }
+    
+    public PagedResponse<PunchlineResponse> getPunchlinesCreatedBy(String username, UserPrincipal currentUser, int page, int size, String sort) {
+    	validatePageNumberAndSize(page, size);
+    	
+    	User user = userRepository.findByUsername(username)
+    			.orElseThrow(()-> new ResourceNotFoundException("User", "username", username));
+    	
+    	Pageable pageable;
+    	if (sort.equals("newest")) {
+    		pageable = PageRequest.of(page,  size, Sort.Direction.DESC, "createdAt");
+    	} else {
+    		pageable = PageRequest.of(page,  size, Sort.Direction.DESC, "likeCount");
+    	}
+    	
+    	Page<Punchline> punchlines = punchlineRepository.findByCreatedBy(user.getId(), pageable);
+    	
+    	if(punchlines.getNumberOfElements()==0) {
+			return new PagedResponse<>(Collections.emptyList(), punchlines.getNumber(),
+					punchlines.getSize(), punchlines.getTotalElements(), punchlines.getTotalPages(), punchlines.isLast());
+		}
+    	
+		Map<Long, User> creatorMap = getPunchlineCreatorMap(punchlines.getContent());
+		
+		List<PunchlineResponse> punchlineResponses = punchlines.map(punchline -> {
+			return ModelMapper.mapPunchlineToPunchlineResponse(punchline, creatorMap.get(punchline.getCreatedBy()));
+		}).getContent();
+		
+		return new PagedResponse<>(punchlineResponses, punchlines.getNumber(), punchlines.getSize(), punchlines.getTotalElements(), punchlines.getTotalPages(), punchlines.isLast());
     }
 }
 

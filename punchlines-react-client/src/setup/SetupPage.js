@@ -57,7 +57,6 @@ class SetupPage extends Component {
     }
 
     componentDidMount() {
-        console.log("Test")
         const setupId = this.props.match.params.setupId;
         this.loadSetupAndPunchlineList(setupId);
     }
@@ -84,7 +83,6 @@ class SetupPage extends Component {
     }
 
     refreshPunchlineList() {
-        console.log("refreshPunchlineList")
         this.setState({
             punchlines: [],
             page: 0,
@@ -120,7 +118,6 @@ class SetupPage extends Component {
         this.state.punchlines.forEach((punchline, punchlineIndex) => {
             punchlineViews.push(<Punchline handleDelete={this.handleDelete} currentUser= {this.props.currentUser} key={punchline.id} punchline = {punchline}/>)
         })
-        console.log(this.state.setup)
         if(this.state.isLoading) {
             return <LoadingIndicator/>
         }

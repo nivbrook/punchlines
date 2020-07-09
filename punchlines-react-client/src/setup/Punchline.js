@@ -53,6 +53,7 @@ class Punchline extends Component {
         return (
             <div className="punchline-content">
                 <div className="poll-header">
+                    {this.props.username && <a href={"/setups/"+this.props.punchline.setup.id}><i>{this.props.punchline.setup.text}</i></a>}
                 <div className="top-bar">
                         <div className="like-button">
                             {!this.state.isLiked ? 

@@ -60,7 +60,7 @@ export function createPunchline(punchlineData) {
 export function getAllSetups(page, size, category="all", sort="newest") {
     page = page || 0;
     size = size || POLL_LIST_SIZE;
-    console.log(API_BASE_URL + "/setups?page=" + page + "&size=" + size + "&category=" + category + "&sort=" + sort)
+
     return request({
         url: API_BASE_URL + "/setups?page=" + page + "&size=" + size + "&category=" + category + "&sort=" + sort,
         method: 'GET'
@@ -203,22 +203,22 @@ export function getUserVotedPolls(username, page, size) {
     });
 }
 
-export function getUserCreatedSetups(username, page, size) {
+export function getUserCreatedSetups(username, page, size, category, sort) {
     page = page || 0;
     size = size || POLL_LIST_SIZE;
 
     return request({
-        url: API_BASE_URL + "/setups/" + username + "/setups?page=" + page + "&size=" + size,
+        url: API_BASE_URL + "/setups/user/" + username + "/setups?page=" + page + "&size=" + size  + "&category=" + category + "&sort=" + sort,
         method: 'GET'
     });
 }
 
-export function getUserCreatedPunchline(username, page, size) {
+export function getUserCreatedPunchlines(username, page, size, sort) {
     page = page || 0;
     size = size || POLL_LIST_SIZE;
 
     return request({
-        url: API_BASE_URL + "/setups/" + username + "/punchlines?page=" + page + "&size=" + size,
+        url: API_BASE_URL + "/setups/user/" + username + "/punchlines?page=" + page + "&size=" + size + "&sort="+sort,
         method: 'GET'
     });
 }
