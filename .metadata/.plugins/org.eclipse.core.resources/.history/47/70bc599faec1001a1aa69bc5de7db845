@@ -65,14 +65,13 @@ public class SetupService {
 		validatePageNumberAndSize(page, size);
 		System.out.println("category="+category+" sort="+sort);
 		Pageable pageable;
-		if (sort.equals("newest")) {
+		if (sort == "newest") {
 			pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
 		} else {
 			pageable = PageRequest.of(page, size, Sort.Direction.DESC, "likeCount");
 		}
 		Page<Setup> setups;
-		if (category.equals("all")) {
-			System.out.println("finding all");
+		if (category == "all") {
 			setups = setupRepository.findAll(pageable);
 		} else {
 			setups = setupRepository.findByCategory(category, pageable);
@@ -99,16 +98,10 @@ public class SetupService {
 		return ModelMapper.mapSetupToSetupResponse(setup, creator);
 	}
 	
-	public PagedResponse<PunchlineResponse> getPunchlinesBySetupId(UserPrincipal currentUser, int page, int size, Long setupId, String sort) {
+	public PagedResponse<PunchlineResponse> getPunchlinesBySetupId(UserPrincipal currentUser, int page, int size, Long setupId) {
 		validatePageNumberAndSize(page, size);
 		
-		Pageable pageable;
-		if (sort.equals("newest")) {
-			pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
-		} else {
-			pageable = PageRequest.of(page, size, Sort.Direction.DESC, "likeCount");
-		}
-		
+		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
 		Page<Punchline> punchlines = punchlineRepository.findBySetupId(setupId, pageable);
 		
 		if(punchlines.getNumberOfElements()==0) {

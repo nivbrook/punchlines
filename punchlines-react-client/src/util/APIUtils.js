@@ -57,12 +57,12 @@ export function createPunchline(punchlineData) {
     })
 }
 
-export function getAllSetups(page, size) {
+export function getAllSetups(page, size, category="all", sort="newest") {
     page = page || 0;
     size = size || POLL_LIST_SIZE;
-
+    console.log(API_BASE_URL + "/setups?page=" + page + "&size=" + size + "&category=" + category + "&sort=" + sort)
     return request({
-        url: API_BASE_URL + "/setups?page=" + page + "&size=" + size,
+        url: API_BASE_URL + "/setups?page=" + page + "&size=" + size + "&category=" + category + "&sort=" + sort,
         method: 'GET'
     });
 }
@@ -74,12 +74,12 @@ export function getSetupById(setupId) {
     });
 }
 
-export function getPunchlinesBySetupId(page, size, setupId) {
+export function getPunchlinesBySetupId(page, size, setupId, sort) {
     page = page || 0;
     size = size || POLL_LIST_SIZE;
 
     return request({
-        url: API_BASE_URL + "/setups/"+setupId+"/punchlines?page=" + page + "&size=" + size,
+        url: API_BASE_URL + "/setups/"+setupId+"/punchlines?page=" + page + "&size=" + size + "&sort=" + sort,
         method: 'GET'
     });
 }
@@ -108,6 +108,20 @@ export function likeSetup(setupId) {
 export function unlikeSetup(setupId) {
     return request({
         url: API_BASE_URL + "/setups/" + setupId + "/unlike",
+        method: 'POST'
+    })
+}
+
+export function likePunchline(punchlineId) {
+    return request({
+        url: API_BASE_URL + "/setups/punchlines/" + punchlineId + "/like",
+        method: 'POST'
+    })
+}
+
+export function unlikePunchline(punchlineId) {
+    return request({
+        url: API_BASE_URL + "/setups/punchlines/" + punchlineId + "/unlike",
         method: 'POST'
     })
 }
@@ -185,6 +199,26 @@ export function getUserVotedPolls(username, page, size) {
 
     return request({
         url: API_BASE_URL + "/users/" + username + "/votes?page=" + page + "&size=" + size,
+        method: 'GET'
+    });
+}
+
+export function getUserCreatedSetups(username, page, size) {
+    page = page || 0;
+    size = size || POLL_LIST_SIZE;
+
+    return request({
+        url: API_BASE_URL + "/setups/" + username + "/setups?page=" + page + "&size=" + size,
+        method: 'GET'
+    });
+}
+
+export function getUserCreatedPunchline(username, page, size) {
+    page = page || 0;
+    size = size || POLL_LIST_SIZE;
+
+    return request({
+        url: API_BASE_URL + "/setups/" + username + "/punchlines?page=" + page + "&size=" + size,
         method: 'GET'
     });
 }

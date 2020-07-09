@@ -29,7 +29,9 @@ class AppHeader extends Component {
               </Link>
             </Menu.Item>,
             <Menu.Item key="/setups" className="profile-menu">
-              <SetupsDropdownMenu handleMenuClick={this.handleMenuClick}/>
+              <Link to="/setups/new">
+                New Setup
+              </Link>
             </Menu.Item>,
             <Menu.Item key="/profile" className="profile-menu">
                 <ProfileDropdownMenu 
@@ -100,38 +102,38 @@ function ProfileDropdownMenu(props) {
   );
 }
 
-function SetupsDropdownMenu(props) {
-  const dropdownMenu = (
-    <Menu onClick={props.handleMenuClick} className="profile-dropdown-menu">
-      <Menu.Item key="jokes" className="dropdown-item">
-        <Link to="/jokes">Jokes</Link>
-      </Menu.Item>
-      <Menu.Item key="news" className="dropdown-item">
-        <Link to="/news">In The News</Link>
-      </Menu.Item>
-      <Menu.Item key="premises" className="dropdown-item">
-        <Link to="/premises">Premises</Link>
-      </Menu.Item>
-      <Menu.Divider />
-      <Menu.Item key="/setups/new">
-        <Link to="/setups/new">
-          Create Setup
-        </Link>
-      </Menu.Item>
-    </Menu>
-  );
+// function SetupsDropdownMenu(props) {
+//   const dropdownMenu = (
+//     <Menu onClick={props.handleMenuClick} className="profile-dropdown-menu">
+//       <Menu.Item key="jokes" className="dropdown-item">
+//         <Link to="/jokes">Jokes</Link>
+//       </Menu.Item>
+//       <Menu.Item key="news" className="dropdown-item">
+//         <Link to="/news">In The News</Link>
+//       </Menu.Item>
+//       <Menu.Item key="premises" className="dropdown-item">
+//         <Link to="/premises">Premises</Link>
+//       </Menu.Item>
+//       <Menu.Divider />
+//       <Menu.Item key="/setups/new">
+//         <Link to="/setups/new">
+//           Create Setup
+//         </Link>
+//       </Menu.Item>
+//     </Menu>
+//   );
 
-  return (
-    <Dropdown 
-      overlay={dropdownMenu} 
-      trigger={['click']}
-      getPopupContainer = { () => document.getElementsByClassName('profile-menu')[0]}>
-      <a className="ant-dropdown-link">
-         Setups<Icon type="down" />
-      </a>
-    </Dropdown>
-  );
-}
+//   return (
+//     <Dropdown 
+//       overlay={dropdownMenu} 
+//       trigger={['click']}
+//       getPopupContainer = { () => document.getElementsByClassName('profile-menu')[0]}>
+//       <a className="ant-dropdown-link">
+//          Setups<Icon type="down" />
+//       </a>
+//     </Dropdown>
+//   );
+// }
 
 
 export default withRouter(AppHeader);

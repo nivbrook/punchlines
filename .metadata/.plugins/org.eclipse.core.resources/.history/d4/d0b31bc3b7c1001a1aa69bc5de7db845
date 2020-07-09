@@ -94,9 +94,8 @@ public class SetupController {
 	public PagedResponse<PunchlineResponse> getPunchlineBySetupId(@CurrentUser UserPrincipal currentUser,
 			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
 			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
-			@RequestParam(value = "sort") String sort,
 			@PathVariable("setupId") Long setupId){
-		return setupService.getPunchlinesBySetupId(currentUser, page, size, setupId, sort);
+		return setupService.getPunchlinesBySetupId(currentUser, page, size, setupId);
 	}
 	
 	@DeleteMapping("/{setupId}")

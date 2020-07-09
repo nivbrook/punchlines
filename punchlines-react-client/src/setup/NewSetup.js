@@ -111,7 +111,7 @@ class newSetup extends Component {
                             value={this.state.category}
                             style={{width: 200}}>
                                 <Option value="Jokes">Jokes</Option>
-                                <Option value="News">In the News</Option>
+                                <Option value="In the News">In the News</Option>
                                 <Option value="Premises">Premises</Option>
                         </Select>
                     </FormItem>

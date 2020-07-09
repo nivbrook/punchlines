@@ -4,14 +4,15 @@
     margin-top: 20px; 
 }
 
-.poll-content {
+.punchline-content {
+    /* background-color: rgb(229, 241, 252); */
     margin-bottom: 30px;
     padding: 20px 15px 20px 15px;
     letter-spacing: .01em;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
 }
 
-.poll-question {
+.punchline-text {
     font-weight: 500;
     font-size: 21px;
     color: rgba(0, 0, 0, 0.85);
@@ -192,4 +193,24 @@
 
 .delete-button {
     color: red;
+}
+
+.punchline-box {
+    display: flex;
+    align-items: center;
+}
+
+.like-count {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    margin-top: -15px;
+    margin-right: -48px;
+}
+
+.like-button {
+    margin-top: -15px;
+    margin-right: 5px;
 }

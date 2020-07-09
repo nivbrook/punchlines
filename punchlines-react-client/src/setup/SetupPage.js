@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './SetupPage.css';
 import { SETUP_LIST_SIZE } from '../constants';
 import { getSetupById, getPunchlinesBySetupId, deletePunchline } from '../util/APIUtils';
-import { Button, Icon, notification } from 'antd';
+import { Select, Button, Icon, notification } from 'antd';
 import Setup from './Setup';
 import Punchline from './Punchline'
 import { withRouter } from 'react-router-dom';
 import LoadingIndicator from '../common/LoadingIndicator';
+
+const { Option } = Select;
 
 class SetupPage extends Component {
     constructor(props) {
@@ -19,12 +21,14 @@ class SetupPage extends Component {
             totalElements: 0,
             totalPages: 0,
             last: true,
-            isLoading: true
+            isLoading: true,
+            sort: "newest"
         };
         this.loadSetupAndPunchlineList = this.loadSetupAndPunchlineList.bind(this);
         this.handleLoadMore = this.handleLoadMore.bind(this);
         this.refreshPunchlineList = this.refreshPunchlineList.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleSort = this.handleSort.bind(this);
     }
 
     loadSetupAndPunchlineList(setupId, page = 0, size = SETUP_LIST_SIZE) {
@@ -34,7 +38,7 @@ class SetupPage extends Component {
                 setup: response,
                 isLoading: false
             })
-            getPunchlinesBySetupId(page, size, setupId).then( response => {
+            getPunchlinesBySetupId(page, size, setupId, this.state.sort).then( response => {
                 const punchlines = this.state.punchlines.slice();
 
                 this.setState({
@@ -97,6 +101,20 @@ class SetupPage extends Component {
         deletePunchline(punchlineId);
         this.refreshPunchlineList();
     }
+
+    handleSort(value) {
+        this.setState({
+            punchlines: [],
+            page: 0,
+            size: 10,
+            totalElements: 0,
+            totalPages: 0,
+            last: true,
+            isLoading: true,
+            sort: value
+        }, ()=>{this.loadSetupAndPunchlineList(this.props.match.params.setupId)})
+    }
+
     render() {
         const punchlineViews = [];
         this.state.punchlines.forEach((punchline, punchlineIndex) => {
@@ -109,6 +127,14 @@ class SetupPage extends Component {
         return (
             <div className="polls-container">
                 <Setup currentUser= {this.props.currentUser} setup= {this.state.setup} refreshPunchlineList={this.refreshPunchlineList}/>
+                <div className="filters">
+                    <div className="single-filter">
+                        <label>Sort by:</label> <Select style={{width: 150}} value={this.state.sort} onChange={this.handleSort}>
+                            <Option value="newest">Newest</Option>
+                            <Option value="most_laughs">Most Laughs</Option>
+                        </Select>
+                    </div>
+                </div>
                 {punchlineViews}
                 {
                     !this.state.isLoading && this.state.punchlines.length === 0 ? (

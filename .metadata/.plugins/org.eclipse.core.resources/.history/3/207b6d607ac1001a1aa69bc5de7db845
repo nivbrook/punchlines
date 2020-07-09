@@ -80,10 +80,6 @@ public class ModelMapper {
     	UserSummary creatorSummary = new UserSummary(creator.getId(), creator.getUsername(), creator.getName());
     	punchlineResponse.setCreatedBy(creatorSummary);
     	
-    	for(User user:punchline.getUserLikes()) {
-    		punchlineResponse.getLikeIds().add(user.getId());
-    	}
-    	
     	return punchlineResponse;
     }
 }

@@ -1,15 +1,12 @@
 package com.nivbrook.punchlines.payload;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PunchlineResponse {
 	private Long id;
 	private String text;
 	private UserSummary createdBy;
 	private Instant creationDateTime;
-	private List<Long> likeIds = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -35,10 +32,6 @@ public class PunchlineResponse {
 	public void setCreationDateTime(Instant creationDateTime) {
 		this.creationDateTime = creationDateTime;
 	}
-	public List<Long> getLikeIds() {
-		return likeIds;
-	}
-	public void setLikeIds(List<Long> likeIds) {
-		this.likeIds = likeIds;
-	}
+	
+	
 }

@@ -61,10 +61,8 @@ public class SetupController {
 	@GetMapping
 	public PagedResponse<SetupResponse> getSetups(@CurrentUser UserPrincipal currentUser,
 			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
-			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
-			@RequestParam(value = "category") String category,
-			@RequestParam(value = "sort") String sort) {
-		return setupService.getAllSetups(currentUser, page, size, category, sort);
+			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) {
+		return setupService.getAllSetups(currentUser, page, size);
 	}
 	
 	@PostMapping("/punchlines")
@@ -94,9 +92,8 @@ public class SetupController {
 	public PagedResponse<PunchlineResponse> getPunchlineBySetupId(@CurrentUser UserPrincipal currentUser,
 			@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
 			@RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
-			@RequestParam(value = "sort") String sort,
 			@PathVariable("setupId") Long setupId){
-		return setupService.getPunchlinesBySetupId(currentUser, page, size, setupId, sort);
+		return setupService.getPunchlinesBySetupId(currentUser, page, size, setupId);
 	}
 	
 	@DeleteMapping("/{setupId}")

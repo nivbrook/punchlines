@@ -105,7 +105,8 @@ class App extends Component {
               <Switch>      
                 <Route exact path="/"
                   render={(props) => <SetupList isAuthenticated={this.state.isAuthenticated}
-                  currentUser={this.state.currentUser} handleLogout={this.handleLogout} {...props} />}>
+                  currentUser={this.state.currentUser} handleLogout={this.handleLogout}
+                  category="all" {...props} />}>
                 </Route>
                 <PrivateRoute authenticated={this.state.isAuthenticated} path="/setups/new" component={NewSetup} handleLogout={this.handleLogout}></PrivateRoute>
                 <Route exact path="/setups/:setupId"
