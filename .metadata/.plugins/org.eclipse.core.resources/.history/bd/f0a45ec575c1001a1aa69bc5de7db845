@@ -145,15 +145,6 @@ public class SetupController {
 		return ResponseEntity.ok().header("Like Attempt", "Success").body(new ApiResponse(true, "Like Successful"));
 	}
 	
-	@PostMapping("/punchlines/{punchlineId}/unlike")
-	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<?> unlikePunchline(@CurrentUser UserPrincipal currentUser,
-			@PathVariable("punchlineId") long punchlineId) {
-		setupService.unlikePunchline(currentUser.getId(), punchlineId);
-		
-		return ResponseEntity.ok().header("Unlike Attempt", "Success").body(new ApiResponse(true, "Unlike Successful"));
-	}
-	
 }
 
 

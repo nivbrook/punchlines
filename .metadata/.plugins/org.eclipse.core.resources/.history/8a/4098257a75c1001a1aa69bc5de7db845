@@ -166,22 +166,6 @@ public class SetupService {
     	setup.setLikeCount(setup.getLikeCount()-1);
     	setupRepository.save(setup);
     }
-    
-    public void likePunchline(Long userId, long punchlineId) {
-    	Punchline punchline = punchlineRepository.findById(punchlineId).get();
-    	User user = userRepository.findById(userId).get();
-    	punchline.getUserLikes().add(user);
-    	punchline.setLikeCount(punchline.getLikeCount()+1);
-    	punchlineRepository.save(punchline);
-    }
-    
-    public void unlikePunchline(Long userId, long punchlineId) {
-    	Punchline punchline = punchlineRepository.findById(punchlineId).get();
-    	User user = userRepository.findById(userId).get();
-    	punchline.getUserLikes().remove(user);
-    	punchline.setLikeCount(punchline.getLikeCount()-1);
-    	punchlineRepository.save(punchline);
-    }
 }
 
 
