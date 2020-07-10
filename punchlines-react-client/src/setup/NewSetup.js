@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createSetup } from '../util/APIUtils';
 import { SETUP_TEXT_MAX_LENGTH } from '../constants';
 import './NewSetup.css';
-import { Form, Input, Button, Icon, Select, Col, notification } from 'antd';
+import { Form, Input, Button, Select, Col, notification } from 'antd';
 const Option = Select.Option;
 const FormItem = Form.Item;
 const { TextArea } = Input
@@ -34,10 +34,10 @@ class newSetup extends Component {
             this.props.history.push("/");
         }).catch(error => {
             if(error.status === 401) {
-                this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create poll.');    
+                this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create setup.');    
             } else {
                 notification.error({
-                    message: 'Polling App',
+                    message: 'Punchlines.biz',
                     description: error.message || 'Sorry! Something went wrong. Please try again!'
                 });              
             }
@@ -87,12 +87,12 @@ class newSetup extends Component {
 
     render() {
         return (
-            <div className="new-poll-container">
+            <div className="new-setup-container">
                 <h1 className="page-title">Create Setup</h1>
-                <div className="new-poll-content">
-                    <Form onSubmit={this.handleSubmit} className="create-poll-form">
+                <div className="new-setup-content">
+                    <Form onSubmit={this.handleSubmit} className="create-setup-form">
                     <FormItem validateStatus={this.state.setup.validateStatus}
-                            help={this.state.setup.errorMsg} className="poll-form-row">
+                            help={this.state.setup.errorMsg} className="setup-form-row">
                         <TextArea 
                             placeholder="Enter your Setup"
                             style = {{ fontSize: '16px' }} 
@@ -101,7 +101,7 @@ class newSetup extends Component {
                             value = {this.state.setup.text}
                             onChange = {this.handleSetupChange} />
                     </FormItem>
-                    <FormItem className="poll-form-row">
+                    <FormItem className="setup-form-row">
                         <Col xs={24} sm={4}>
                             Category: 
                         </Col>
@@ -115,12 +115,12 @@ class newSetup extends Component {
                                 <Option value="Premises">Premises</Option>
                         </Select>
                     </FormItem>
-                    <FormItem className="poll-form-row">
+                    <FormItem className="setup-form-row">
                         <Button type="primary" 
                             htmlType="submit" 
                             size="large" 
                             disabled={this.isFormInvalid()}
-                            className="create-poll-form-button">Create Setup</Button>
+                            className="create-setup-form-button">Create Setup</Button>
                     </FormItem>
                     </Form>
                 </div>

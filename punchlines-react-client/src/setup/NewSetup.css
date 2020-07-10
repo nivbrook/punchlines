@@ -1,14 +1,15 @@
-.new-poll-container {
+/* USED */
+.new-setup-container {
     max-width: 520px;
     margin: 0 auto;
     margin-top: 40px;
 }
 
-.create-poll-form-button {
+.create-setup-form-button {
     width: 100%;
 }
 
-.create-poll-form-button[disabled], .create-poll-form-button[disabled]:hover, .create-poll-form-button[disabled]:focus {
+.create-setup-form-button[disabled], .create-setup-form-button[disabled]:hover, .create-setup-form-button[disabled]:focus {
     opacity: 0.6;
     color: #fff;
     background-color: #1890ff;
@@ -39,10 +40,10 @@
     opacity: 0.5;
 }
 
-.poll-form-row {
+.setup-form-row {
     margin-bottom: 20px;
 }
 
-.poll-form-row input, .poll-form-row textarea {
+.setup-form-row input, .setup-form-row textarea {
     margin-bottom: 4px;
 }

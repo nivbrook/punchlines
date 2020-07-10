@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import './Punchline.css';
 import { withRouter} from 'react-router-dom';
-import { Avatar, Icon, Button, Form, Input, notification } from 'antd';
 import { Link } from 'react-router-dom';
-import { getAvatarColor } from '../util/Colors';
 import { formatDateTime } from '../util/Helpers';
 import { likePunchline, unlikePunchline } from '../util/APIUtils';
 
@@ -62,13 +60,13 @@ class Punchline extends Component {
                                     style={{cursor:'pointer'}}
                                     onMouseOver={e => (e.currentTarget.src = "/laughicon.svg")}
                                     onMouseOut={e => (e.currentTarget.src = "/laughbw.svg")}
-                                    height="30" src="/laughbw.svg"/> :
+                                    height="30" src="/laughbw.svg" alt=""/> :
                                 <img 
                                     onClick={()=>this.handleUnlike()}
                                     style={{cursor:'pointer'}}
                                     onMouseOver={e => (e.currentTarget.src = "/laughbw.svg")}
                                     onMouseOut={e => (e.currentTarget.src = "/laughicon.svg")}
-                                    height="30" src="/laughicon.svg"/>}
+                                    height="30" src="/laughicon.svg" alt=""/> }
                         </div>
                         <div className="like-count">
                             <span style={{fontSize: "20px", fontWeight: "700"}}>{this.state.likeCount}</span>

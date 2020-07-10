@@ -9,9 +9,7 @@ import {
 import { getCurrentUser } from '../util/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
 
-import PollList from '../poll/PollList';
 import SetupList from '../setup/SetupList';
-import NewPoll from '../poll/NewPoll';
 import NewSetup from '../setup/NewSetup';
 import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
@@ -77,14 +75,14 @@ class App extends Component {
     this.props.history.push(redirectTo);
     
     notification[notificationType]({
-      message: 'Polling App',
+      message: 'Punchlines.biz',
       description: description,
     });
   }
 
   handleLogin() {
     notification.success({
-      message: 'Polling App',
+      message: 'Punchlines.biz',
       description: "You're successfully logged in.",
     });
     this.loadCurrentUser();
@@ -119,7 +117,6 @@ class App extends Component {
                 <Route path="/users/:username" 
                   render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props}  />}>
                 </Route>
-                <PrivateRoute authenticated={this.state.isAuthenticated} path="/poll/new" component={NewPoll} handleLogout={this.handleLogout}></PrivateRoute>
                 <Route component={NotFound}></Route>
               </Switch>
             </div>

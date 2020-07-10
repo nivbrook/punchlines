@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import './Setup.css';
 import { createPunchline, deleteSetup, likeSetup, unlikeSetup } from '../util/APIUtils';
 import { withRouter} from 'react-router-dom';
-import { Avatar, Icon, Button, Form, Input, notification } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 import { PUNCHLINE_TEXT_MAX_LENGTH } from '../constants';
 import { Link } from 'react-router-dom';
-import { getAvatarColor } from '../util/Colors';
 import { formatDateTime } from '../util/Helpers';
 
 const FormItem = Form.Item;
@@ -17,7 +16,7 @@ class Setup extends Component {
         super(props);
         this.state = {
             punchline: {
-                text: ''
+                text: ""
             },
             likeCount: 0,
             isLiked: false
@@ -94,10 +93,9 @@ class Setup extends Component {
     }
 
     validatePunchline(punchlineText) {
-        if(punchlineText === 0) {
+        if(punchlineText.length === 0) {
             return {
-                validateStatus: 'error',
-                errorMsg: 'Please enter your Punchline!'
+                validateStatus: 'empty',
             }
         }  else if(punchlineText.length > PUNCHLINE_TEXT_MAX_LENGTH) {
             return {
@@ -146,13 +144,13 @@ class Setup extends Component {
                                     style={{cursor:'pointer'}}
                                     onMouseOver={e => (e.currentTarget.src = "/laughicon.svg")}
                                     onMouseOut={e => (e.currentTarget.src = "/laughbw.svg")}
-                                    height="30" src="/laughbw.svg"/> :
+                                    height="30" src="/laughbw.svg" alt=""/> :
                                 <img 
                                     onClick={()=>this.handleUnlike()}
                                     style={{cursor:'pointer'}}
                                     onMouseOver={e => (e.currentTarget.src = "/laughbw.svg")}
                                     onMouseOut={e => (e.currentTarget.src = "/laughicon.svg")}
-                                    height="30" src="/laughicon.svg"/>}
+                                    height="30" src="/laughicon.svg" alt=""/>}
                         </div>
                         <div className="like-count">
                             <span style={{fontSize: "20px", fontWeight: "700"}}>{this.state.likeCount}</span>
@@ -200,7 +198,7 @@ class Setup extends Component {
                                 htmlType="submit" 
                                 size="default" 
                                 disabled={this.isFormInvalid()}
-                                className="create-poll-form-button">submit</Button>
+                                className="create-setup-form-button">submit</Button>
                         </FormItem>
                     </Form>
                 </div>
@@ -210,5 +208,3 @@ class Setup extends Component {
 }
 
 export default withRouter(Setup);
-
-{/* <img height="40" className="like-button" src="/laughicon.png"/> */}

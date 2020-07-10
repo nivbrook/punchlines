@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './SetupPage.css';
 import { SETUP_LIST_SIZE } from '../constants';
 import { getSetupById, getPunchlinesBySetupId, deletePunchline } from '../util/APIUtils';
-import { Select, Button, Icon, notification } from 'antd';
+import { Select, Button, Icon } from 'antd';
 import Setup from './Setup';
 import Punchline from './Punchline'
 import { withRouter } from 'react-router-dom';

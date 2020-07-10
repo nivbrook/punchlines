@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getAllSetups, getUserCreatedSetups } from '../util/APIUtils';
 import Setup from './Setup';
 import LoadingIndicator  from '../common/LoadingIndicator';
-import { Select, Button, Icon, notification } from 'antd';
+import { Select, Button, Icon } from 'antd';
 import { SETUP_LIST_SIZE } from '../constants';
 import { withRouter } from 'react-router-dom';
 import './SetupList.css';
@@ -36,7 +36,7 @@ class SetupList extends Component {
         } else {
             promise = getAllSetups(page, size, this.state.category, this.state.sort);
         }
-        
+
         if(!promise) {
             return;
         }
@@ -66,7 +66,6 @@ class SetupList extends Component {
     }
 
     componentDidMount() {
-        console.log("Mounted")
         this.loadSetupList();
     }
 
