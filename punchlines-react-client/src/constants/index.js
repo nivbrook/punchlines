@@ -7,7 +7,7 @@ export const POLL_QUESTION_MAX_LENGTH = 140;
 export const POLL_CHOICE_MAX_LENGTH = 40;
 
 export const SETUP_TEXT_MAX_LENGTH = 280
-export const SETUP_LIST_SIZE = 30;
+export const SETUP_LIST_SIZE = 10;
 
 export const PUNCHLINE_TEXT_MAX_LENGTH = 280
 
