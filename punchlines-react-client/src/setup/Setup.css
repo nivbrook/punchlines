@@ -213,3 +213,14 @@
     margin-top: -15px;
     margin-right: 5px;
 }
+
+.create-setup-form-button {
+    width: 100%;
+}
+
+.create-setup-form-button[disabled], .create-setup-form-button[disabled]:hover, .create-setup-form-button[disabled]:focus {
+    opacity: 0.6;
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
