@@ -1,2 +1,2 @@
 # punchlines
- Punchlines.bix app with React frontend and Spring backend
+ Punchlines.biz app with React frontend and Spring backend
