@@ -1,4 +1,6 @@
-export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://192.168.1.199:5000/api';
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://3.16.130.147/api';
+// export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+
 export const ACCESS_TOKEN = 'accessToken';
 
 export const POLL_LIST_SIZE = 30;

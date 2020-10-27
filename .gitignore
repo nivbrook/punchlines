@@ -53,3 +53,5 @@ build/
 .vscode/
 
 .metadata
+.DS_Store
+punchlines-spring-backend/.DS_Store
